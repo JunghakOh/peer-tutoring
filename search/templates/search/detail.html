@@ -1,0 +1,80 @@
+{% extends 'search/base.html' %}
+{% block title %}{{ department }}{% endblock %}
+{% block departments_active %}active{% endblock %}
+
+{% block content %}
+<div class="container-fluid courses-container">
+
+    <div class="row">
+
+        <!-- Left department Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'search:detail' department.id %}">
+                        {% if department.department_logo %}
+                            <img src="{{ department.department_logo.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>{{ department.department_name }} <small>{{ department.code }}</small></h1>
+                    <p>Harvard University</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right course Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'search:detail' department.id %}">View All</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All courses</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course Name</th>
+                            <th>Number of Tutors</th>
+                            <th style="text-align:center">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for course in department.course_set.all %}
+                            <tr>
+                                <td>{{ course.course_code }}</td>
+                                <td>{{ course.course_name }}</td>
+                                <td align="center">{{ course.num_tutors }}</td>
+                                <td><button type="button" class="btn btn-default">
+                                  <a href="https://harvard.az1.qualtrics.com/SE/?SID=SV_3OYXJnH5NibHqOp">
+                                    Request Tutor</a>
+                                    </button>
+                                    <button type="button" class="btn btn-default">
+                                      <a href="https://harvard.az1.qualtrics.com/SE/?SID=SV_erktU9nCfQaD7YF">Become Tutor</a>
+                                        </button>
+				</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

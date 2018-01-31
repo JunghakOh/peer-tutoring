@@ -1,0 +1,13 @@
+@import url(https://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+
+body {
+    background: white url("/static/search/img/background.png");
+}
+
+.navbar{
+  border-radius: 0;
+}
+
+.navbar-brand{
+  font-family: 'Gloria Hallelujah', cursive;
+}
